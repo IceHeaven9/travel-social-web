@@ -1,0 +1,12 @@
+.tab-list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+}
+
+.tab-list .tab-button {
+  border-radius: 0;
+}
+.tab-list .tab-button.tab-button-active {
+  background-color: var(--primary);
+}

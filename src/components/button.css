@@ -1,0 +1,18 @@
+.button {
+  padding: 0.25rem 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: 1px solid var(--gray);
+  border-radius: 0.25rem;
+  cursor: pointer;
+  gap: 0.25rem;
+  font-size: inherit;
+  color: inherit;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}

@@ -1,0 +1,78 @@
+.travel-card-container {
+  width: 100%;
+  max-width: 360px;
+}
+
+.travel-card {
+  --card-padding: 0.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  /* border: 2px solid var(--light); */
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  overflow: hidden;
+
+  position: relative;
+  width: 100%;
+}
+
+.travel-card-actions {
+  display: flex;
+  position: absolute;
+  gap: 0.25rem;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.travel-card .main-image {
+  width: 100%;
+  object-fit: contain;
+  height: 300px;
+  background-color: var(--gray);
+}
+
+.travel-card .user-link-container {
+  /* background-color: rgba(0, 0, 0, 0.2); */
+  /* position: absolute; */
+
+  padding: var(--card-padding);
+}
+
+.travel-card .title {
+  padding: var(--card-padding);
+}
+.travel-card .description {
+  padding: var(--card-padding);
+}
+
+.travel-card .interaction-section {
+  display: flex;
+  padding: var(--card-padding);
+}
+
+.travel-card .comments {
+  display: flex;
+  width: 100%;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (min-width: 768px) {
+  .travel-card-container {
+    max-width: 768px;
+  }
+  .travel-card {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .travel-card .main-image {
+    grid-row: 1 / span 3;
+    /* height: 100%; */
+  }
+
+  .travel-card .user-link-container {
+    grid-column: 2;
+    grid-row: 1;
+  }
+}
