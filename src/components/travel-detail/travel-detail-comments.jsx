@@ -11,88 +11,88 @@ import { toast } from "react-toastify";
 import { TravelComment } from "../travel-comment.jsx";
 
 export function TravelDetailComments({
-  travel,
-  inputAutoFocus,
-  setInputAutoFocus,
+	travel,
+	inputAutoFocus,
+	setInputAutoFocus,
 }) {
-  const [comments, setComments] = useState([]);
-  const currentUser = useCurrentUser();
-  const textAreaRef = useRef();
+	const [comments, setComments] = useState([]);
+	const currentUser = useCurrentUser();
+	const textAreaRef = useRef();
 
-  useEffect(() => {
-    if (inputAutoFocus) {
-      textAreaRef.current.focus();
-      setInputAutoFocus(false);
-    }
-  }, []);
+	useEffect(() => {
+		if (inputAutoFocus) {
+			textAreaRef.current.focus();
+			setInputAutoFocus(false);
+		}
+	}, []);
 
-  async function getComments() {
-    try {
-      const { list } = await apiCall("get", `/travels/${travel.id}/comments`);
-      setComments(list);
-    } catch (err) {
-      console.error(err);
-    }
-  }
+	async function getComments() {
+		try {
+			const { list } = await apiCall("get", `/travels/${travel.id}/comments`);
+			setComments(list);
+		} catch (err) {
+			console.error(err);
+		}
+	}
 
-  useEffect(() => {
-    getComments();
+	useEffect(() => {
+		getComments();
 
-    const intervalId = setInterval(() => {
-      getComments();
-    }, 60 * 1000);
+		const intervalId = setInterval(() => {
+			getComments();
+		}, 60 * 1000);
 
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [travel.id]);
+		return () => {
+			clearInterval(intervalId);
+		};
+	}, [travel.id]);
 
-  async function onCreateNewComment(data) {
-    try {
-      const { id } = await apiCall(
-        "post",
-        `/travels/${travel.id}/comments`,
-        data
-      );
+	async function onCreateNewComment(data) {
+		try {
+			const { id } = await apiCall(
+				"post",
+				`/travels/${travel.id}/comments`,
+				data
+			);
 
-      const newComment = {
-        ...data,
-        travelId: travel.id,
-        user: { ...currentUser },
-        id,
-      };
+			const newComment = {
+				...data,
+				travelId: travel.id,
+				user: { ...currentUser },
+				id,
+			};
 
-      setComments((old) => [...old, newComment]);
-      toast.success("Comentario creado correctamente");
-    } catch (error) {
-      toast.error(error.message);
-    }
-  }
+			setComments((old) => [...old, newComment]);
+			toast.success("Comentario creado correctamente");
+		} catch (error) {
+			toast.error(error.message);
+		}
+	}
 
-  return (
-    <>
-      <ul className="travel-detail-comment-list">
-        {comments.map((comment) => {
-          return (
-            <TravelComment
-              key={comment.id}
-              comment={comment}
-              onDelete={() => {
-                setComments((old) => old.filter((c) => c.id !== comment.id));
-              }}
-            />
-          );
-        })}
-      </ul>
-      <Form
-        onSubmit={onCreateNewComment}
-        validationSchema={createCommentSchema}
-        resetOnSubmit={true}
-      >
-        <h3>Deja tu comentario</h3>
-        <Textarea ref={textAreaRef} name="message" label="Mensaje" />
-        <FormButton>Enviar!</FormButton>
-      </Form>
-    </>
-  );
+	return (
+		<>
+			<Form
+				onSubmit={onCreateNewComment}
+				validationSchema={createCommentSchema}
+				resetOnSubmit={true}
+			>
+				<h3>Deja tu comentario</h3>
+				<Textarea ref={textAreaRef} name="message" label="Mensaje" />
+				<FormButton>Enviar!</FormButton>
+			</Form>
+			<ul className="travel-detail-comment-list">
+				{comments.map((comment) => {
+					return (
+						<TravelComment
+							key={comment.id}
+							comment={comment}
+							onDelete={() => {
+								setComments((old) => old.filter((c) => c.id !== comment.id));
+							}}
+						/>
+					);
+				})}
+			</ul>
+		</>
+	);
 }
