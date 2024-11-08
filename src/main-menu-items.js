@@ -1,3 +1,4 @@
+
 export const SHOW_OPTIONS = {
   ALWAYS: "ALWAYS",
   ANONYMOUS: "ANONYMOUS",
@@ -7,19 +8,19 @@ export const SHOW_OPTIONS = {
 export const mainMenuItems = [
   {
     icon: "home",
-    label: "Home",
+    label: "Inicio",
     url: "/",
     showOn: SHOW_OPTIONS.ALWAYS,
   },
   {
-    icon: "person",
-    label: "Companions",
-    url: "/companions",
+    icon: "sos",
+    label: "Ayuda",
+    url: "/help",
     showOn: SHOW_OPTIONS.ALWAYS,
   },
   {
     icon: "explore",
-    label: "Explore",
+    label: "Noticias",
     url: "/explore",
     showOn: SHOW_OPTIONS.ALWAYS,
   },
@@ -37,7 +38,7 @@ export const mainMenuItems = [
   },
   {
     icon: "add",
-    label: "Nuevo Travel",
+    label: "Nueva Noticia",
     url: "/travels/create",
     showOn: SHOW_OPTIONS.LOGGED_IN,
   },
